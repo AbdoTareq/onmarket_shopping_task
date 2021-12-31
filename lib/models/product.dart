@@ -1,7 +1,14 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+List<Product> productsFromJson(String str) =>
+    List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+
+String deliveriesToJson(List<Product> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class Product {
-  final String id;
+  String id;
   final String name;
   final String imageUrl;
   final String description;
@@ -36,6 +43,12 @@ class Product {
       hasDiscount: hasDiscount ?? this.hasDiscount,
       discountedPrice: discountedPrice ?? this.discountedPrice,
     );
+  }
+
+  factory Product.fromSnapshot(DocumentSnapshot snapshot) {
+    final product = Product.fromMap(snapshot.data() as Map<String, dynamic>);
+    product.id = snapshot.reference.id;
+    return product;
   }
 
   Map<String, dynamic> toMap() {
@@ -74,25 +87,25 @@ class Product {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+ 
     return other is Product &&
-      other.id == id &&
-      other.name == name &&
-      other.imageUrl == imageUrl &&
-      other.description == description &&
-      other.price == price &&
-      other.hasDiscount == hasDiscount &&
-      other.discountedPrice == discountedPrice;
+        other.id == id &&
+        other.name == name &&
+        other.imageUrl == imageUrl &&
+        other.description == description &&
+        other.price == price &&
+        other.hasDiscount == hasDiscount &&
+        other.discountedPrice == discountedPrice;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      imageUrl.hashCode ^
-      description.hashCode ^
-      price.hashCode ^
-      hasDiscount.hashCode ^
-      discountedPrice.hashCode;
+        name.hashCode ^
+        imageUrl.hashCode ^
+        description.hashCode ^
+        price.hashCode ^
+        hasDiscount.hashCode ^
+        discountedPrice.hashCode;
   }
 }

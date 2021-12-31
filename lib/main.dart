@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:onmarket_shopping_task/view/pages/HomePage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:onmarket_shopping_task/view/pages/top_rated_page.dart';
 import 'export.dart';
 import 'utils/langs/my_translation.dart';
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       locale: Get.deviceLocale,
       defaultTransition: Transition.leftToRight,
       initialBinding: AppBinding(),
-      home: HomePage(),
+      home: TopRatedPage(),
     );
   }
 }

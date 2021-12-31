@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
+import 'package:onmarket_shopping_task/models/product.dart';
+import 'package:onmarket_shopping_task/repos/product_repo.dart';
+import 'package:onmarket_shopping_task/view/pages/most_selling_page.dart';
+import 'package:onmarket_shopping_task/view/pages/top_rated_page.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+import '../../constants.dart';
+
+class HomePage extends GetView<TopRatedController> {
+  HomePage({Key? key}) : super(key: key);
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const TopRatedPage(),
+    MostSellingPage(),
+    const MostSPage(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageView(
+        children: _widgetOptions,
+        controller: controller.pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (value) => controller.selectedIndex = value,
+      ),
+      bottomNavigationBar: Obx(
+        () => SafeArea(
+          child: SalomonBottomBar(
+            currentIndex: controller.selectedIndex,
+            onTap: (index) => controller.goToIndex(index),
+            items: [
+              SalomonBottomBarItem(
+                icon: Icon(Icons.production_quantity_limits),
+                title: Text('tickets'.tr),
+                selectedColor: kPrimaryColor,
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Icons.production_quantity_limits),
+                title: Text('map'.tr),
+                selectedColor: kPrimaryColor,
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Icons.production_quantity_limits),
+                title: Text('history'.tr),
+                selectedColor: kPrimaryColor,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

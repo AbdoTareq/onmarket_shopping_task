@@ -1,14 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onmarket_shopping_task/view/pages/HomePage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'export.dart';
 import 'utils/langs/my_translation.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await GetStorage.init();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: ar_app_name.tr,
       translations: MyTranslation(),
       locale: Get.deviceLocale,
-      // defaultTransition: Transition.leftToRight,
+      defaultTransition: Transition.leftToRight,
       initialBinding: AppBinding(),
       home: HomePage(),
     );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "428944771104",
+    "project_id": "onmarket-shoping-task",
+    "storage_bucket": "onmarket-shoping-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428944771104:android:a31f0fb6739918f7685445",
+        "android_client_info": {
+          "package_name": "com.simplute.onmarket_shopping_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428944771104-ggu36rc2nr1j5k1bjm1ag048toee15u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiLRcRzj-X_cRhNgYQxv04hrMP9q54yzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428944771104-ggu36rc2nr1j5k1bjm1ag048toee15u0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,12 @@ class TopRatedController extends GetxController {
   TopRatedController(this.repository);
   var products = <Product>[].obs;
 
+  @override
+  void onReady()async {
+    await getProducts();
+    super.onReady();
+  }
+
   Future<void> getProducts() async {
     products(await repository.getAll());
     logger.i("${products.length}");

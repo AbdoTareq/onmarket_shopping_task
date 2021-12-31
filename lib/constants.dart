@@ -6,8 +6,6 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final logger = Logger();
 
 //base url
-const base_url = 'Put_base_url_here';
-const headers = {'Accept': 'application/json'};
 const baseImagePath = 'assets/images';
 
 const Map<int, Color> colorMap = {

@@ -34,17 +34,17 @@ class HomePage extends GetView<TopRatedController> {
             onTap: (index) => controller.goToIndex(index),
             items: [
               SalomonBottomBarItem(
-                icon: Icon(Icons.production_quantity_limits),
-                title: Text('tickets'.tr),
+                icon: Icon(Icons.favorite),
+                title: Text('Top Rated'.tr),
                 selectedColor: kPrimaryColor,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.production_quantity_limits),
-                title: Text('map'.tr),
+                icon: Icon(Icons.auto_graph),
+                title: Text('Most Selling'.tr),
                 selectedColor: kPrimaryColor,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.production_quantity_limits),
+                icon: Icon(Icons.history),
                 title: Text('history'.tr),
                 selectedColor: kPrimaryColor,
               ),

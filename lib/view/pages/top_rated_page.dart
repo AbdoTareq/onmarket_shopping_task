@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
 import 'package:onmarket_shopping_task/repos/product_repo.dart';
+import 'package:onmarket_shopping_task/view/widgets/product_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TopRatedPage extends GetView<TopRatedController> {
@@ -28,31 +29,3 @@ class TopRatedPage extends GetView<TopRatedController> {
   }
 }
 
-class ProductWidget extends StatelessWidget {
-  const ProductWidget({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
-
-  final Product item;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: item.name.text.make(),
-      leading: CircleAvatar(
-        foregroundImage: NetworkImage(item.imageUrl),
-        radius: 44,
-      ),
-      subtitle: item.description.text.make(),
-      trailing: item.hasDiscount
-          ? Column(
-              children: [
-                item.price.text.lineThrough.make(),
-                item.discountedPrice.text.make(),
-              ],
-            )
-          : item.price.text.make(),
-    );
-  }
-}

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/cart_controller.dart';
 import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
-import 'package:onmarket_shopping_task/repos/product_repo.dart';
+import 'package:onmarket_shopping_task/repos/shopping_repo.dart';
 
 import 'controller/app_settings_controller.dart';
 

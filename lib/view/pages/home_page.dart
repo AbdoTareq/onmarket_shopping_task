@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
-import 'package:onmarket_shopping_task/repos/product_repo.dart';
+import 'package:onmarket_shopping_task/repos/shopping_repo.dart';
 import 'package:onmarket_shopping_task/view/pages/most_selling_page.dart';
 import 'package:onmarket_shopping_task/view/pages/top_rated_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';

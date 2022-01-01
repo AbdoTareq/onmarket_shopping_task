@@ -13,3 +13,4 @@ export 'package:velocity_x/velocity_x.dart';
 // dependency injection
 export 'app_bindings.dart';
 export 'models/product.dart';
+export 'models/cart_item.dart';

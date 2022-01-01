@@ -28,8 +28,8 @@ class ProductWidget extends StatelessWidget {
           trailing: item.hasDiscount
               ? Column(
                   children: [
-                    item.price.text.lineThrough.make(),
-                    item.discountedPrice.text.make(),
+                    item.price.text.lineThrough.make().p4(),
+                    item.discountedPrice.text.red500.make(),
                   ],
                 )
               : item.price.text.make(),
@@ -54,23 +54,13 @@ class ProductWidget extends StatelessWidget {
             ));
           },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            VxStepper(
-              min: 0,
-              defaultValue: 0,
-              step: 1,
-              onChange: (value) {
-                logger.i("${value}");
-              },
-            ),
-            MaterialButton(
-                color: kPrimaryColor,
-                onPressed: () {},
-                splashColor: Colors.blueGrey,
-                child: const Icon(Icons.add_shopping_cart)),
-          ],
+        VxStepper(
+          min: 0,
+          defaultValue: 0,
+          step: 1,
+          onChange: (value) {
+            logger.i("${value}");
+          },
         ).p8(),
         15.heightBox,
       ],

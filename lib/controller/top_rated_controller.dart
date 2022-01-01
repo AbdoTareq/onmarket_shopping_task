@@ -6,7 +6,7 @@ import 'package:onmarket_shopping_task/repos/product_repo.dart';
 import '../constants.dart';
 
 class TopRatedController extends GetxController {
-  final ProductsRepository repository;
+  final ShoppingRepository repository;
   TopRatedController(this.repository);
 
   var products = <Product>[].obs;

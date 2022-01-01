@@ -3,18 +3,18 @@ import 'package:onmarket_shopping_task/models/product.dart';
 
 import '../constants.dart';
 
-abstract class ProductsRepository {
+abstract class ShoppingRepository {
   Future<List<Product>> getAll();
 }
 
-class ProductsManager implements ProductsRepository {
-  ProductsManager._privateConstructor();
+class ShoppingManager implements ShoppingRepository {
+  ShoppingManager._privateConstructor();
 
-  static final ProductsManager _instance = ProductsManager._privateConstructor();
+  static final ShoppingManager _instance = ShoppingManager._privateConstructor();
 
   final CollectionReference collection = FirebaseFirestore.instance.collection('all_products');
 
-  factory ProductsManager() {
+  factory ShoppingManager() {
     return _instance;
   }
 

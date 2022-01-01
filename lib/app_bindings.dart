@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:onmarket_shopping_task/controller/cart_controller.dart';
 import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
 import 'package:onmarket_shopping_task/repos/product_repo.dart';
 
@@ -9,6 +10,7 @@ class AppBinding implements Bindings {
   void dependencies() {
     Get.put(AppSettingsController(), permanent: true).addThemeListener();
     Get.find<AppSettingsController>().addLanguageListener();
-    Get.lazyPut<TopRatedController>(() => TopRatedController(ProductsManager()));
+    Get.lazyPut<TopRatedController>(() => TopRatedController(ShoppingManager()));
+    Get.lazyPut<CartController>(() => CartController(ShoppingManager()));
   }
 }

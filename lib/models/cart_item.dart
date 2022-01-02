@@ -10,7 +10,7 @@ class CartItem {
     required this.quantity,
   });
 
-  double get price => quantity * product.price;
+  double get price => quantity * (product.hasDiscount ? product.discountedPrice : product.price);
 
   CartItem copyWith({
     Product? product,

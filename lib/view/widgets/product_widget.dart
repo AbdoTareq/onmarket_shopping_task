@@ -26,7 +26,7 @@ class ProductWidget extends GetView<CartController> {
       () => QuantityWidget(
         quantity: controller.quantities[index].value,
         plus: () => controller.addToCart(item, index),
-        minus: () => controller.removeFromCart(item, index),
+        minus: () => controller.decreaseItemInCart(item, index),
       ).p8(),
     );
     return Column(

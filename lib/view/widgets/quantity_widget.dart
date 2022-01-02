@@ -42,7 +42,7 @@ class QuantityWidget extends StatelessWidget {
     ));
 
     children.add(const SizedBox(width: _KDefaultSpace));
-    children.add(Container(
+    children.add(SizedBox(
       height: _KDefaultButtonSize,
       width: _KDefaultButtonSize,
       child: MaterialButton(

@@ -15,13 +15,13 @@ class TopRatedPage extends GetView<TopRatedController> {
       body: SafeArea(
         child: GetX<TopRatedController>(builder: (_) {
           return _.products.isEmpty
-              ? 'no_data'.tr.text.makeCentered()
+              ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
                   separatorBuilder: (context, index) => const Divider(height: 1),
                   itemCount: controller.products.length,
                   itemBuilder: (context, index) {
                     final item = controller.products[index];
-                    return ProductWidget(item: item,index:index);
+                    return ProductWidget(item: item, index: index);
                   });
         }),
       ),

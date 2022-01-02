@@ -24,7 +24,7 @@ class ProductWidget extends GetView<CartController> {
   Widget build(BuildContext context) {
     var stepper = Obx(
       () => QuantityWidget(
-        quantity: controller.quantities[index].value,
+        quantity: controller.quantities[index].quantity.value,
         plus: () => controller.addToCart(item, index),
         minus: () => controller.decreaseItemInCart(item, index),
       ).p8(),

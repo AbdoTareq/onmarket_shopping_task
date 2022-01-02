@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
 
-import '../constants.dart';
-
 abstract class ShoppingRepository {
   Future<List<Product>> getAll();
+
+  Future<void> addToCart();
+  Future<void> removeFromCart();
 }
 
 class ShoppingManager implements ShoppingRepository {
@@ -27,4 +28,10 @@ class ShoppingManager implements ShoppingRepository {
     }
     return products;
   }
+
+  @override
+  Future<void> addToCart() async {}
+
+  @override
+  Future<void> removeFromCart() async {}
 }

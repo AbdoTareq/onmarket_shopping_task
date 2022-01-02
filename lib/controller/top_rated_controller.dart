@@ -11,8 +11,8 @@ class TopRatedController extends GetxController {
 
   var products = <Product>[].obs;
   final RxInt _selectedIndex = 0.obs;
-  get selectedIndex => this._selectedIndex.value;
-  set selectedIndex(value) => this._selectedIndex.value = value;
+  get selectedIndex => _selectedIndex.value;
+  set selectedIndex(value) => _selectedIndex.value = value;
 
   late PageController pageController;
   @override
@@ -23,7 +23,7 @@ class TopRatedController extends GetxController {
 
   void goToIndex(int index) {
     selectedIndex = index;
-    pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
   @override
@@ -34,7 +34,6 @@ class TopRatedController extends GetxController {
 
   Future<void> getProducts() async {
     products(await repository.getAll());
-    logger.i("${products.length}");
   }
 
   @override

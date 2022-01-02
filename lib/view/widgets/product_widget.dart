@@ -1,20 +1,34 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onmarket_shopping_task/controller/cart_controller.dart';
+import 'package:onmarket_shopping_task/export.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
+import 'package:onmarket_shopping_task/view/widgets/quantity_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../constants.dart';
 
-class ProductWidget extends StatelessWidget {
-  const ProductWidget({
+class ProductWidget extends GetView<CartController> {
+  ProductWidget({
     Key? key,
     required this.item,
+    required this.index,
   }) : super(key: key);
 
   final Product item;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    var stepper = Obx(
+      () => QuantityWidget(
+        quantity: controller.quantities[index].value,
+        plus: () => controller.addToCart(item, index),
+        minus: () => controller.removeFromCart(item, index),
+      ).p8(),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -36,10 +50,7 @@ class ProductWidget extends StatelessWidget {
           onTap: () {
             Get.bottomSheet(Column(
               children: [
-                CircleAvatar(
-                  foregroundImage: NetworkImage(item.imageUrl),
-                  radius: 44,
-                ).p4(),
+                CircleAvatar(foregroundImage: NetworkImage(item.imageUrl), radius: 44).p4(),
                 item.name.text.make().p4(),
                 '${item.description} ${item.description} ${item.description} '.text.center.make().p4(),
                 item.hasDiscount
@@ -50,18 +61,12 @@ class ProductWidget extends StatelessWidget {
                         ],
                       )
                     : item.price.text.make().p4(),
+                stepper,
               ],
             ));
           },
         ),
-        VxStepper(
-          min: 0,
-          defaultValue: 0,
-          step: 1,
-          onChange: (value) {
-            logger.i("${value}");
-          },
-        ).p8(),
+        stepper,
         15.heightBox,
       ],
     );

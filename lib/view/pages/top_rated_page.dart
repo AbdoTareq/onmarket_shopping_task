@@ -21,12 +21,12 @@ class TopRatedPage extends GetView<TopRatedController> {
                   itemCount: controller.products.length,
                   itemBuilder: (context, index) {
                     final item = controller.products[index];
-                    return ProductWidget(item: item);
+                    return ProductWidget(item: item,index:index);
                   });
         }),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(() => CartPage()),
+        onPressed: () => Get.to(() => const CartPage()),
         child: const Icon(Icons.add_shopping_cart, color: Colors.white),
         backgroundColor: Colors.blue,
       ),

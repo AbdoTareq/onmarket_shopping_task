@@ -16,7 +16,7 @@ class HomePage extends GetView<HomeController> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const TopRatedPage(),
-    MostSellingPage(),
+    const MostSellingPage(),
     const RecentlyViewedPage(),
   ];
   @override

@@ -8,6 +8,7 @@ class ShoppingController extends GetxController {
   ShoppingController(this.repository);
   var productsBydate = <Product>[].obs;
   var productsByRate = <Product>[].obs;
+  var productsBySelling = <Product>[].obs;
 
   @override
   void onReady() async {
@@ -18,5 +19,6 @@ class ShoppingController extends GetxController {
   Future<void> getProducts() async {
     productsBydate(await repository.getAllByDate());
     productsByRate(await repository.getAllByRate());
+    productsBySelling(await repository.getAllBySelling());
   }
 }

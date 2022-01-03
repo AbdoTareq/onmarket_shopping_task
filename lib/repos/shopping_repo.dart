@@ -4,6 +4,7 @@ import 'package:onmarket_shopping_task/models/product.dart';
 abstract class ShoppingRepository {
   Future<List<Product>> getAllByDate();
   Future<List<Product>> getAllByRate();
+  Future<List<Product>> getAllBySelling();
 
   Future<void> addToCart();
   Future<void> removeFromCart();
@@ -20,6 +21,9 @@ class ShoppingManager implements ShoppingRepository {
       FirebaseFirestore.instance.collection('all_products').orderBy('last_viewed', descending: true).get();
   final Future<QuerySnapshot<Map<String, dynamic>>> orderedQueryByRate =
       FirebaseFirestore.instance.collection('all_products').orderBy('rate', descending: true).get();
+
+  final Future<QuerySnapshot<Map<String, dynamic>>> orderedQueryBySelling =
+      FirebaseFirestore.instance.collection('all_products').orderBy('bestSelling', descending: true).get();
 
   factory ShoppingManager() {
     return _instance;
@@ -39,6 +43,16 @@ class ShoppingManager implements ShoppingRepository {
   Future<List<Product>> getAllByDate() async {
     var products = <Product>[];
     var value = (await orderedQueryDate).docs;
+    for (var item in value) {
+      products.add(Product.fromMap(item.data()));
+    }
+    return products;
+  }
+
+  @override
+  Future<List<Product>> getAllBySelling() async {
+    var products = <Product>[];
+    var value = (await orderedQueryBySelling).docs;
     for (var item in value) {
       products.add(Product.fromMap(item.data()));
     }

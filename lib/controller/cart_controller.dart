@@ -18,6 +18,8 @@ class CartController extends GetxController {
   }
 
   void initailCart() {
+    tempCartItems([]);
+    update();
     for (var item in Get.find<ShoppingController>().productsByRate) {
       tempCartItems.add(CartItem(product: item, quantity: 0.obs));
     }
@@ -36,10 +38,7 @@ class CartController extends GetxController {
     if (tempCartItems[index].quantity.value == 1) {
       cartItems.add(tempCartItems[index]);
     } else {
-      var cartItem =
-          cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
-      cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
-      cartItems.add(tempCartItems[index]);
+      updateItemQuantity(index);
     }
     removeAnyZeroQuantityItem();
   }
@@ -48,12 +47,16 @@ class CartController extends GetxController {
     if (tempCartItems[index].quantity > 0) {
       tempCartItems[index].quantity.value--;
     } else {
-      var cartItem =
-          cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
-      cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
-      cartItems.add(tempCartItems[index]);
+      updateItemQuantity(index);
     }
     removeAnyZeroQuantityItem();
+  }
+
+  void updateItemQuantity(int index) {
+    var cartItem =
+        cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
+    cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
+    cartItems.add(tempCartItems[index]);
   }
 
   removeFromCart(CartItem cartItem) {
@@ -71,7 +74,6 @@ class CartController extends GetxController {
   }
 
   checkout() {
-    tempCartItems([]);
     initailCart();
     Get.forceAppUpdate();
     Get.back();

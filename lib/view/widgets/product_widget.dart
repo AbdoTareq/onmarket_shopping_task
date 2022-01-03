@@ -25,7 +25,7 @@ class ProductWidget extends GetView<CartController> {
     var stepper = Obx(
       () => QuantityWidget(
         quantity: controller.quantities[index].quantity.value,
-        plus: () => controller.addToCart(item, index),
+        plus: () => controller.increaseItemInCart(item, index),
         minus: () => controller.decreaseItemInCart(item, index),
       ).p8(),
     );
@@ -35,6 +35,7 @@ class ProductWidget extends GetView<CartController> {
         ListTile(
           title: item.name.text.make(),
           leading: CircleAvatar(
+            onForegroundImageError: (exception, stackTrace) => logger.i("image loading error $exception"),
             foregroundImage: NetworkImage(item.imageUrl),
             radius: 44,
           ),
@@ -50,7 +51,12 @@ class ProductWidget extends GetView<CartController> {
           onTap: () {
             Get.bottomSheet(Column(
               children: [
-                CircleAvatar(foregroundImage: NetworkImage(item.imageUrl), radius: 44).p4(),
+                CircleAvatar(
+                  onForegroundImageError: (exception, stackTrace) =>
+                      logger.i("image loading error $exception"),
+                  foregroundImage: NetworkImage(item.imageUrl),
+                  radius: 44,
+                ).p4(),
                 item.name.text.make().p4(),
                 '${item.description} ${item.description} ${item.description} '.text.center.make().p4(),
                 item.hasDiscount

@@ -18,8 +18,8 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  addToCart(Product product, int index) {
-     logger.i("plus ${index}");
+  increaseItemInCart(Product product, int index) {
+    logger.i("plus ${index}");
     if (index < quantities.length) {
       quantities[index].quantity++;
       if (quantities[index].quantity.value == 1) {
@@ -33,7 +33,7 @@ class CartController extends GetxController {
   }
 
   decreaseItemInCart(Product product, int index) {
-     logger.i("minus ${index}");
+    logger.i("minus ${index}");
 
     if (quantities[index].quantity > 0) {
       quantities[index].quantity--;
@@ -64,7 +64,7 @@ class CartController extends GetxController {
     return total;
   }
 
-  Future<void> checkout() async {
+  checkout() {
     cartItems([]);
     quantities = [];
     Get.forceAppUpdate();

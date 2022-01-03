@@ -28,7 +28,7 @@ class CartPage extends GetView<CartController> {
                                 ? const Divider(height: 80)
                                 : Dismissible(
                                     background: Container(color: Colors.red),
-                                    onDismissed: (direction) => controller.removeFromCart(item),
+                                    onDismissed: (direction) => controller.removeFromCart(cartItem),
                                     key: Key(item.name),
                                     child: Column(
                                       children: [

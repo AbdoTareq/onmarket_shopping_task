@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/cart_controller.dart';
 import 'package:onmarket_shopping_task/export.dart';
-import 'package:onmarket_shopping_task/models/product.dart';
 import 'package:onmarket_shopping_task/view/widgets/quantity_widget.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-import '../../constants.dart';
 
 class ProductWidget extends GetView<CartController> {
   ProductWidget({
@@ -24,9 +21,9 @@ class ProductWidget extends GetView<CartController> {
   Widget build(BuildContext context) {
     var stepper = Obx(
       () => QuantityWidget(
-        quantity: controller.quantities[index].quantity.value,
-        plus: () => controller.increaseItemInCart(item, index),
-        minus: () => controller.decreaseItemInCart(item, index),
+        quantity: controller.tempCartItems[index].quantity.value,
+        plus: () => controller.increaseItemInCart( index),
+        minus: () => controller.decreaseItemInCart( index),
       ).p8(),
     );
     return Column(

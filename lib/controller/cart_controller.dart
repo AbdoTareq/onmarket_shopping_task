@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/shopping_controller.dart';
 import 'package:onmarket_shopping_task/export.dart';
-import 'package:onmarket_shopping_task/models/quntityWithKey.dart';
 import 'package:onmarket_shopping_task/repos/shopping_repo.dart';
 import 'package:onmarket_shopping_task/utils/utils.dart';
 
@@ -10,74 +9,72 @@ class CartController extends GetxController {
   CartController(this.repository);
 
   var cartItems = <CartItem>[].obs;
-  var quantities = <QuantityWithKey>[];
+  var tempCartItems = <CartItem>[].obs;
 
   @override
   void onInit() {
-    getCartItems();
+    initailCart();
     super.onInit();
   }
 
-  updateCartItem(int index, Product product) {
-    var cartItemIndex = cartItems.indexWhere((element) => element.product.name == product.name);
-    var quantityIndex = quantities.indexWhere((element) => element.name == product.name);
-
-    logger.i("index $quantityIndex cartItemIndex $cartItemIndex");
-    cartItems[cartItemIndex] =
-        cartItems[cartItemIndex].copyWith(quantity: quantities[quantityIndex].quantity.value);
+  void initailCart() {
+    for (var item in Get.find<ShoppingController>().productsByRate) {
+      tempCartItems.add(CartItem(product: item, quantity: 0.obs));
+    }
   }
 
-  increaseItemInCart(Product product, int index) {
-    if (index < quantities.length) {
-      quantities[index].quantity++;
-      if (quantities[index].quantity.value == 1) {
-        cartItems.add(CartItem(product: product, quantity: quantities[index].quantity.value));
-      } else {
-        updateCartItem(index, product);
+  removeAnyZeroQuantityItem() {
+    for (var item in cartItems) {
+      if (item.quantity.value == 0) {
+        cartItems.remove(item);
       }
     }
   }
 
-  decreaseItemInCart(Product product, int index) {
-    if (quantities[index].quantity > 0) {
-      quantities[index].quantity--;
-      if (quantities[index].quantity.value == 0) {
-        cartItems.removeWhere((element) => element.product.name == product.name);
-      } else {
-        updateCartItem(index, product);
-      }
+  increaseItemInCart(int index) {
+    tempCartItems[index].quantity.value++;
+    if (tempCartItems[index].quantity.value == 1) {
+      cartItems.add(tempCartItems[index]);
+    } else {
+      var cartItem =
+          cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
+      cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
+      cartItems.add(tempCartItems[index]);
     }
+    removeAnyZeroQuantityItem();
   }
 
-  removeFromCart(Product product) {
-    for (var i = 0; i < quantities.length; i++) {
-      if (quantities[i].name == product.name) {
-        quantities[i].quantity(0);
-      }
+  decreaseItemInCart(int index) {
+    if (tempCartItems[index].quantity > 0) {
+      tempCartItems[index].quantity.value--;
+    } else {
+      var cartItem =
+          cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
+      cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
+      cartItems.add(tempCartItems[index]);
     }
-    cartItems.removeWhere((element) => element.product.name == product.name);
+    removeAnyZeroQuantityItem();
+  }
+
+  removeFromCart(CartItem cartItem) {
+    cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
+    int index = tempCartItems.indexOf(cartItem);
+    tempCartItems[index].quantity.value = 0;
   }
 
   double getTotalPrice() {
     double total = 0;
-    for (var item in cartItems) {
+    for (var item in tempCartItems) {
       total += item.price;
     }
     return total;
   }
 
   checkout() {
-    cartItems([]);
-    quantities = [];
+    tempCartItems([]);
+    initailCart();
     Get.forceAppUpdate();
-    getCartItems();
     Get.back();
     showSuccessSnack(title: 'success', text: 'Order is placed');
-  }
-
-  getCartItems() {
-    for (var _ in Get.find<ShoppingController>().productsByRate) {
-      quantities.add(QuantityWithKey(quantity: 0.obs, name: _.name));
-    }
   }
 }

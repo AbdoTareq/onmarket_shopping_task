@@ -1,20 +1,22 @@
 import 'dart:convert';
 
+import 'package:get/state_manager.dart';
+
 import 'package:onmarket_shopping_task/models/product.dart';
 
 class CartItem {
   final Product product;
-  final int quantity;
+  final RxInt quantity;
   CartItem({
     required this.product,
     required this.quantity,
   });
 
-  double get price => quantity * (product.hasDiscount ? product.discountedPrice : product.price);
+  double get price => quantity.value * (product.hasDiscount ? product.discountedPrice : product.price);
 
   CartItem copyWith({
     Product? product,
-    int? quantity,
+    RxInt? quantity,
   }) {
     return CartItem(
       product: product ?? this.product,
@@ -25,14 +27,14 @@ class CartItem {
   Map<String, dynamic> toMap() {
     return {
       'product': product.toMap(),
-      'quantity': quantity,
+      'quantity': quantity.value,
     };
   }
 
   factory CartItem.fromMap(Map<String, dynamic> map) {
     return CartItem(
       product: Product.fromMap(map['product']),
-      quantity: map['quantity']?.toInt() ?? 0,
+      quantity:  map['quantity']?.toInt() ?? 0.obs,
     );
   }
 

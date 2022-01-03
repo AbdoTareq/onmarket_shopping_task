@@ -15,6 +15,7 @@ class Product {
   final double price;
   final bool hasDiscount;
   final double discountedPrice;
+  final double rate;
   Product({
     required this.id,
     required this.name,
@@ -23,6 +24,7 @@ class Product {
     required this.price,
     required this.hasDiscount,
     required this.discountedPrice,
+    required this.rate,
   });
 
   Product copyWith({
@@ -33,6 +35,7 @@ class Product {
     double? price,
     bool? hasDiscount,
     double? discountedPrice,
+    double? rate,
   }) {
     return Product(
       id: id ?? this.id,
@@ -42,6 +45,7 @@ class Product {
       price: price ?? this.price,
       hasDiscount: hasDiscount ?? this.hasDiscount,
       discountedPrice: discountedPrice ?? this.discountedPrice,
+      rate: rate ?? this.rate,
     );
   }
 
@@ -60,6 +64,7 @@ class Product {
       'price': price,
       'hasDiscount': hasDiscount,
       'discountedPrice': discountedPrice,
+      'rate': rate,
     };
   }
 
@@ -72,6 +77,7 @@ class Product {
       price: map['price']?.toDouble() ?? 0.0,
       hasDiscount: map['hasDiscount'] ?? false,
       discountedPrice: map['discountedPrice']?.toDouble() ?? 0.0,
+      rate: map['rate']?.toDouble() ?? 0.0,
     );
   }
 
@@ -81,31 +87,33 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, description: $description, price: $price, hasDiscount: $hasDiscount, discountedPrice: $discountedPrice)';
+    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, description: $description, price: $price, hasDiscount: $hasDiscount, discountedPrice: $discountedPrice, rate: $rate)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is Product &&
-        other.id == id &&
-        other.name == name &&
-        other.imageUrl == imageUrl &&
-        other.description == description &&
-        other.price == price &&
-        other.hasDiscount == hasDiscount &&
-        other.discountedPrice == discountedPrice;
+      other.id == id &&
+      other.name == name &&
+      other.imageUrl == imageUrl &&
+      other.description == description &&
+      other.price == price &&
+      other.hasDiscount == hasDiscount &&
+      other.discountedPrice == discountedPrice &&
+      other.rate == rate;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        name.hashCode ^
-        imageUrl.hashCode ^
-        description.hashCode ^
-        price.hashCode ^
-        hasDiscount.hashCode ^
-        discountedPrice.hashCode;
+      name.hashCode ^
+      imageUrl.hashCode ^
+      description.hashCode ^
+      price.hashCode ^
+      hasDiscount.hashCode ^
+      discountedPrice.hashCode ^
+      rate.hashCode;
   }
 }

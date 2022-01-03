@@ -39,7 +39,14 @@ class ProductWidget extends GetView<CartController> {
             foregroundImage: NetworkImage(item.imageUrl),
             radius: 44,
           ),
-          subtitle: item.description.text.make(),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              6.heightBox,
+              item.description.text.make(),
+              Row(children: [item.rate.text.make(), const Icon(Icons.star, color: kPrimaryColor).p4()]),
+            ],
+          ),
           trailing: item.hasDiscount
               ? Column(
                   children: [

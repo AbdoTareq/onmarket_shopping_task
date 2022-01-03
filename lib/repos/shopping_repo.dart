@@ -14,6 +14,8 @@ class ShoppingManager implements ShoppingRepository {
   static final ShoppingManager _instance = ShoppingManager._privateConstructor();
 
   final CollectionReference collection = FirebaseFirestore.instance.collection('all_products');
+  final Future<QuerySnapshot<Map<String, dynamic>>> orderedQuery =
+      FirebaseFirestore.instance.collection('all_products').orderBy('rate', descending: true).get();
 
   factory ShoppingManager() {
     return _instance;
@@ -22,9 +24,9 @@ class ShoppingManager implements ShoppingRepository {
   @override
   Future<List<Product>> getAll() async {
     var products = <Product>[];
-    var value = (await collection.get()).docs;
+    var value = (await orderedQuery).docs;
     for (var item in value) {
-      products.add(Product.fromMap(item.data() as Map<String, dynamic>));
+      products.add(Product.fromMap(item.data()));
     }
     return products;
   }

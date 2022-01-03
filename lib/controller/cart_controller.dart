@@ -18,31 +18,31 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  increaseItemInCart(Product product, int index) {
-    logger.i("plus ${index}");
-    if (index < quantities.length) {
-      quantities[index].quantity++;
-      if (quantities[index].quantity.value == 1) {
-        cartItems.add(CartItem(product: product, quantity: quantities[index].quantity.value));
-        // logger.i("${cartItems.length}");
+  updateCartItem(int quantityIndex, Product product) {
+    var cartItemIndex = cartItems.indexWhere((element) => element.product.name == product.name);
+    logger.i("index $quantityIndex cartItemIndex $cartItemIndex");
+    cartItems[cartItemIndex] =
+        cartItems[cartItemIndex].copyWith(quantity: quantities[quantityIndex].quantity.value);
+  }
+
+  increaseItemInCart(Product product, int quantityIndex) {
+    if (quantityIndex < quantities.length) {
+      quantities[quantityIndex].quantity++;
+      if (quantities[quantityIndex].quantity.value == 1) {
+        cartItems.add(CartItem(product: product, quantity: quantities[quantityIndex].quantity.value));
       } else {
-        var inx = cartItems.indexWhere((element) => element.product.name == product.name);
-        cartItems[inx] = CartItem(product: product, quantity: quantities[inx].quantity.value);
+        updateCartItem(quantityIndex, product);
       }
     }
   }
 
-  decreaseItemInCart(Product product, int index) {
-    logger.i("minus ${index}");
-
-    if (quantities[index].quantity > 0) {
-      quantities[index].quantity--;
-      if (quantities[index].quantity.value == 0) {
+  decreaseItemInCart(Product product, int quantityIndex) {
+    if (quantities[quantityIndex].quantity > 0) {
+      quantities[quantityIndex].quantity--;
+      if (quantities[quantityIndex].quantity.value == 0) {
         cartItems.removeWhere((element) => element.product.name == product.name);
-        // logger.i("${cartItems.length}");
       } else {
-        var inx = cartItems.indexWhere((element) => element.product.name == product.name);
-        cartItems[inx] = CartItem(product: product, quantity: quantities[inx].quantity.value);
+        updateCartItem(quantityIndex, product);
       }
     }
   }

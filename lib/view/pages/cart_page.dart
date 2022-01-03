@@ -10,9 +10,6 @@ class CartPage extends GetView<CartController> {
 
   @override
   Widget build(BuildContext context) {
-    for (var item in controller.quantities) {
-      logger.i("${item.quantity}");
-    }
     return Scaffold(
         appBar: AppBar(title: const Text('Cart Page')),
         body: SafeArea(
@@ -27,7 +24,6 @@ class CartPage extends GetView<CartController> {
                           itemBuilder: (context, index) {
                             final cartItem = controller.cartItems[index];
                             final item = controller.cartItems[index].product;
-                            logger.i("${cartItem.quantity}");
                             return index == controller.cartItems.length
                                 ? const Divider(height: 80)
                                 : Dismissible(

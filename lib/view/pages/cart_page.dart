@@ -31,56 +31,36 @@ class CartPage extends GetView<CartController> {
                                     onDismissed: (direction) => controller.removeFromCart(cartItem),
                                     key: Key(item.name),
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        CircleAvatar(foregroundImage: NetworkImage(item.imageUrl), radius: 44)
-                                            .p4(),
-                                        item.name.text.make().p4(),
-                                        '${item.description} ${item.description} ${item.description} '
-                                            .text
-                                            .center
-                                            .make()
-                                            .p4(),
-                                        item.hasDiscount
-                                            ? Column(
-                                                children: [
-                                                  '1 piece price is  ${item.price}'
-                                                      .text
-                                                      .bold
-                                                      .lineThrough
-                                                      .xl
-                                                      .make()
-                                                      .p8(),
-                                                  'new price is ${item.discountedPrice}'
-                                                      .text
-                                                      .red500
-                                                      .bold
-                                                      .xl
-                                                      .make()
-                                                      .p8(),
-                                                  'quantity  is ${cartItem.quantity}'
-                                                      .text
-                                                      .bold
-                                                      .xl
-                                                      .make()
-                                                      .p8(),
-                                                  'total is ${cartItem.price}'.text.bold.xl.make().p8(),
-                                                ],
-                                              )
-                                            : Column(
-                                                children: [
-                                                  '1 piece price is  ${item.price}'.text.bold.xl.make().p8(),
-                                                  'quantity  is ${cartItem.quantity}'
-                                                      .text
-                                                      .bold
-                                                      .xl
-                                                      .make()
-                                                      .p8(),
-                                                  'total is ${cartItem.price}'.text.bold.xl.make().p8(),
-                                                ],
-                                              ),
+                                        ListTile(
+                                          title: item.name.text.make(),
+                                          leading: Image.network(item.imageUrl).continuousRectangle(width: 70).p4(),
+                                          subtitle: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              6.heightBox,
+                                              item.description.text.make(),
+                                              6.heightBox,
+                                              item.last_viewed.toDate().toLocal().toString().text.make(),
+                                              Row(children: [
+                                                item.rate.text.make(),
+                                                const Icon(Icons.star, color: kPrimaryColor).p4()
+                                              ]),
+                                            ],
+                                          ),
+                                          trailing: item.hasDiscount
+                                              ? Column(
+                                                  children: [
+                                                    item.price.text.lineThrough.make().p4(),
+                                                    item.discountedPrice.text.red500.make(),
+                                                  ],
+                                                )
+                                              : item.price.text.make(),
+                                        ),
+                                        15.heightBox,
                                       ],
-                                    ),
-                                  );
+                                    ));
                           }).expand(),
                       'Total price is ${controller.getTotalPrice().toPrecision(3)}'
                           .text

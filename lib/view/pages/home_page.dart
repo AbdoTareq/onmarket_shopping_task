@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onmarket_shopping_task/controller/top_rated_controller.dart';
+import 'package:onmarket_shopping_task/controller/home_controller.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
 import 'package:onmarket_shopping_task/repos/shopping_repo.dart';
 import 'package:onmarket_shopping_task/view/pages/most_selling_page.dart';
+import 'package:onmarket_shopping_task/view/pages/recently_viewed_page.dart';
 import 'package:onmarket_shopping_task/view/pages/top_rated_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../constants.dart';
 
-class HomePage extends GetView<TopRatedController> {
+class HomePage extends GetView<HomeController> {
   HomePage({Key? key}) : super(key: key);
 
   final List<Widget> _widgetOptions = <Widget>[
     const TopRatedPage(),
     MostSellingPage(),
-    const MostSPage(),
+    RecentlyViewedPage(),
   ];
   @override
   Widget build(BuildContext context) {

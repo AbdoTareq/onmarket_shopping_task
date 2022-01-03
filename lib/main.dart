@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onmarket_shopping_task/view/pages/home_page.dart';
-import 'package:onmarket_shopping_task/view/pages/top_rated_page.dart';
 import 'export.dart';
-import 'utils/langs/my_translation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,9 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: ar_app_name.tr,
-      translations: MyTranslation(),
+      title: 'Shopping Task'.tr,
       locale: Get.deviceLocale,
+      theme: ThemeData.dark(),
       defaultTransition: Transition.leftToRight,
       initialBinding: AppBinding(),
       home: HomePage(),

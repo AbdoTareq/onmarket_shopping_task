@@ -44,6 +44,8 @@ class ProductWidget extends GetView<CartController> {
             children: [
               6.heightBox,
               item.description.text.make(),
+              6.heightBox,
+              item.last_viewed.toDate().toLocal().toString().text.make(),
               Row(children: [item.rate.text.make(), const Icon(Icons.star, color: kPrimaryColor).p4()]),
             ],
           ),

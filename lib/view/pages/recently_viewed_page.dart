@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/controller/shopping_controller.dart';
-import 'package:onmarket_shopping_task/controller/home_controller.dart';
 import 'package:onmarket_shopping_task/view/pages/cart_page.dart';
 import 'package:onmarket_shopping_task/view/widgets/product_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class TopRatedPage extends GetView<ShoppingController> {
-  const TopRatedPage({Key? key}) : super(key: key);
+class RecentlyViewedPage extends GetView<ShoppingController> {
+  const RecentlyViewedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +14,13 @@ class TopRatedPage extends GetView<ShoppingController> {
       appBar: AppBar(title: 'Top Rated'.text.make()),
       body: SafeArea(
         child: GetX<ShoppingController>(builder: (_) {
-          return _.productsByRate.isEmpty
+          return _.productsBydate.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
                   separatorBuilder: (context, index) => const Divider(height: 1),
-                  itemCount: controller.productsByRate.length,
+                  itemCount: controller.productsBydate.length,
                   itemBuilder: (context, index) {
-                    final item = controller.productsByRate[index];
+                    final item = controller.productsBydate[index];
                     return ProductWidget(item: item, index: index);
                   });
         }),

@@ -16,6 +16,8 @@ class Product {
   final bool hasDiscount;
   final double discountedPrice;
   final double rate;
+  // ignore: non_constant_identifier_names
+  final Timestamp last_viewed;
   Product({
     required this.id,
     required this.name,
@@ -25,6 +27,7 @@ class Product {
     required this.hasDiscount,
     required this.discountedPrice,
     required this.rate,
+    required this.last_viewed,
   });
 
   Product copyWith({
@@ -36,6 +39,7 @@ class Product {
     bool? hasDiscount,
     double? discountedPrice,
     double? rate,
+    Timestamp? last_viewed,
   }) {
     return Product(
       id: id ?? this.id,
@@ -46,6 +50,7 @@ class Product {
       hasDiscount: hasDiscount ?? this.hasDiscount,
       discountedPrice: discountedPrice ?? this.discountedPrice,
       rate: rate ?? this.rate,
+      last_viewed: last_viewed ?? this.last_viewed,
     );
   }
 
@@ -65,6 +70,7 @@ class Product {
       'hasDiscount': hasDiscount,
       'discountedPrice': discountedPrice,
       'rate': rate,
+      'last_viewed': last_viewed.toString(),
     };
   }
 
@@ -78,6 +84,7 @@ class Product {
       hasDiscount: map['hasDiscount'] ?? false,
       discountedPrice: map['discountedPrice']?.toDouble() ?? 0.0,
       rate: map['rate']?.toDouble() ?? 0.0,
+      last_viewed: map['last_viewed'],
     );
   }
 
@@ -87,33 +94,35 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, description: $description, price: $price, hasDiscount: $hasDiscount, discountedPrice: $discountedPrice, rate: $rate)';
+    return 'Product(id: $id, name: $name, imageUrl: $imageUrl, description: $description, price: $price, hasDiscount: $hasDiscount, discountedPrice: $discountedPrice, rate: $rate, last_viewed: $last_viewed)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Product &&
-      other.id == id &&
-      other.name == name &&
-      other.imageUrl == imageUrl &&
-      other.description == description &&
-      other.price == price &&
-      other.hasDiscount == hasDiscount &&
-      other.discountedPrice == discountedPrice &&
-      other.rate == rate;
+        other.id == id &&
+        other.name == name &&
+        other.imageUrl == imageUrl &&
+        other.description == description &&
+        other.price == price &&
+        other.hasDiscount == hasDiscount &&
+        other.discountedPrice == discountedPrice &&
+        other.rate == rate &&
+        other.last_viewed == last_viewed;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      imageUrl.hashCode ^
-      description.hashCode ^
-      price.hashCode ^
-      hasDiscount.hashCode ^
-      discountedPrice.hashCode ^
-      rate.hashCode;
+        name.hashCode ^
+        imageUrl.hashCode ^
+        description.hashCode ^
+        price.hashCode ^
+        hasDiscount.hashCode ^
+        discountedPrice.hashCode ^
+        rate.hashCode ^
+        last_viewed.hashCode;
   }
 }

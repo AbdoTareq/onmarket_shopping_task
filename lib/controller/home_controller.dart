@@ -3,13 +3,7 @@ import 'package:get/get.dart';
 import 'package:onmarket_shopping_task/models/product.dart';
 import 'package:onmarket_shopping_task/repos/shopping_repo.dart';
 
-import '../constants.dart';
-
-class TopRatedController extends GetxController {
-  final ShoppingRepository repository;
-  TopRatedController(this.repository);
-
-  var products = <Product>[].obs;
+class HomeController extends GetxController {
   final RxInt _selectedIndex = 0.obs;
   get selectedIndex => _selectedIndex.value;
   set selectedIndex(value) => _selectedIndex.value = value;
@@ -23,17 +17,7 @@ class TopRatedController extends GetxController {
 
   void goToIndex(int index) {
     selectedIndex = index;
-    pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-  }
-
-  @override
-  void onReady() async {
-    await getProducts();
-    super.onReady();
-  }
-
-  Future<void> getProducts() async {
-    products(await repository.getAll());
+    pageController.jumpToPage(index);
   }
 
   @override

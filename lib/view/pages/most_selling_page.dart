@@ -21,7 +21,7 @@ class MostSellingPage extends GetView<ShoppingController> {
                   itemCount: controller.productsBySelling.length,
                   itemBuilder: (context, index) {
                     final item = controller.productsBySelling[index];
-                    return ProductWidget(item: item, index: index);
+                    return ProductWidget(item: item);
                   });
         }),
       ),

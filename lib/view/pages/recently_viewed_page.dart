@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onmarket_shopping_task/controller/cart_controller.dart';
 import 'package:onmarket_shopping_task/controller/shopping_controller.dart';
 import 'package:onmarket_shopping_task/view/pages/cart_page.dart';
 import 'package:onmarket_shopping_task/view/widgets/product_widget.dart';
@@ -7,7 +8,6 @@ import 'package:velocity_x/velocity_x.dart';
 
 class RecentlyViewedPage extends GetView<ShoppingController> {
   const RecentlyViewedPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class RecentlyViewedPage extends GetView<ShoppingController> {
                   itemCount: controller.productsBydate.length,
                   itemBuilder: (context, index) {
                     final item = controller.productsBydate[index];
-                    return ProductWidget(item: item, index: index);
+                    return ProductWidget(item: item);
                   });
         }),
       ),

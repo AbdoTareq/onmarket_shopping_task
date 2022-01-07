@@ -9,7 +9,6 @@ class CartController extends GetxController {
   CartController(this.repository);
 
   var cartItems = <CartItem>[].obs;
-  var tempCartItems = <CartItem>[].obs;
 
   @override
   void onInit() {
@@ -18,11 +17,7 @@ class CartController extends GetxController {
   }
 
   void initailCart() {
-    tempCartItems([]);
     update();
-    for (var item in Get.find<ShoppingController>().productsByRate) {
-      tempCartItems.add(CartItem(product: item, quantity: 0.obs));
-    }
   }
 
   removeAnyZeroQuantityItem() {
@@ -33,41 +28,47 @@ class CartController extends GetxController {
     }
   }
 
-  increaseItemInCart(int index) {
-    tempCartItems[index].quantity.value++;
-    if (tempCartItems[index].quantity.value == 1) {
-      cartItems.add(tempCartItems[index]);
+  increaseItemInCart(String productName) async {
+    CartItem? cartItem = cartItems.firstWhereOrNull((item) => item.product.name == productName);
+
+    if (cartItem != null) {
+      cartItem.quantity.value++;
     } else {
-      updateItemQuantity(index);
+      Product product = await repository.getProductByName(productName);
+      CartItem tempCartItem = CartItem(product: product, quantity: 1.obs);
+      cartItems.add(tempCartItem);
     }
-    removeAnyZeroQuantityItem();
   }
 
-  decreaseItemInCart(int index) {
-    if (tempCartItems[index].quantity > 0) {
-      tempCartItems[index].quantity.value--;
+  decreaseItemInCart(String productName) {
+    CartItem? cartItem = cartItems.firstWhereOrNull((item) => item.product.name == productName);
+
+    if (cartItem == null) {
+      return;
+    } else if (cartItem.quantity.value == 1) {
+      cartItems.remove(cartItem);
     } else {
-      updateItemQuantity(index);
+      cartItem.quantity.value--;
     }
-    removeAnyZeroQuantityItem();
   }
 
-  void updateItemQuantity(int index) {
-    var cartItem =
-        cartItems.firstWhere((element) => element.product.name == tempCartItems[index].product.name);
-    cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
-    cartItems.add(tempCartItems[index]);
+  int getQuantityByProductName(String productName) {
+    CartItem? cartItem = cartItems.firstWhereOrNull((item) => item.product.name == productName);
+
+    if (cartItem == null) {
+      return 0;
+    } else {
+      return cartItem.quantity.value;
+    }
   }
 
-  removeFromCart(CartItem cartItem) {
-    cartItems.removeWhere((element) => element.product.name == cartItem.product.name);
-    int index = tempCartItems.indexOf(cartItem);
-    tempCartItems[index].quantity.value = 0;
+  removeFromCart(String productId) {
+    cartItems.removeWhere((element) => element.product.id == productId);
   }
 
   double getTotalPrice() {
     double total = 0;
-    for (var item in tempCartItems) {
+    for (var item in cartItems) {
       total += item.price;
     }
     return total;

@@ -8,19 +8,17 @@ class ProductWidget extends GetView<CartController> {
   const ProductWidget({
     Key? key,
     required this.item,
-    required this.index,
   }) : super(key: key);
 
   final Product item;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
     var stepper = Obx(
       () => QuantityWidget(
-        quantity: controller.tempCartItems[index].quantity.value,
-        plus: () => controller.increaseItemInCart(index),
-        minus: () => controller.decreaseItemInCart(index),
+        quantity: controller.getQuantityByProductName(item.name),
+        plus: () => controller.increaseItemInCart(item.name),
+        minus: () => controller.decreaseItemInCart(item.name),
       ).p8(),
     );
     return Column(

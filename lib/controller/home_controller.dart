@@ -19,7 +19,7 @@ class HomeController extends GetxController {
   void goToIndex(int index) {
     selectedIndex = index;
     pageController.jumpToPage(index);
-    Get.find<CartController>().initailCart();
+    // Get.find<CartController>().initailCart();
   }
 
   @override
